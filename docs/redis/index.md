@@ -23,3 +23,12 @@ redis-cli.exe -h 127.0.0.1 -p 6379
 
 ## Redis[命令](http://www.redis.cn/commands.html)
 
+### Hello
+
+```redis
+SET hello "Hello Redis!"
+KEYS *
+GET hello
+```
+
+### 

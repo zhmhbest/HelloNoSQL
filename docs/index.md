@@ -8,3 +8,5 @@
 ## [Redis](redis/index.html)
 
 ## [MongoDB](mongodb/index.html)
+
+## [HBase](hbase/index.html)

@@ -1,2 +1,3 @@
-# HelloRedis
-Redis学习笔记
+# HelloNoSQL
+
+NoSQL学习笔记

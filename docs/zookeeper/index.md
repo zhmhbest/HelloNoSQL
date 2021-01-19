@@ -49,9 +49,9 @@ tail -n 2 /etc/profile
 
 ```bash
 # 下载Zookeeper
+ZOOKEEPER_REPOSITORY='http://archive.apache.org/dist/zookeeper'
 ZOOKEEPER_LOCATION='/zookeeper' # 安装位置
 ZOOKEEPER_VERSION='3.5.9'       # 安装版本
-ZOOKEEPER_REPOSITORY='http://archive.apache.org/dist/zookeeper'
 ZOOKEEPER_ARCHIVE="${ZOOKEEPER_REPOSITORY}/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz"
 echo $ZOOKEEPER_ARCHIVE
 wget $ZOOKEEPER_ARCHIVE

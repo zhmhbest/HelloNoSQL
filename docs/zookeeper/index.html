@@ -319,9 +319,9 @@ hostnamectl set-hostname <span class="token string">&apos;zookeeper1&apos;</span
 </pre><h3 class="mume-header" id="%E5%AE%89%E8%A3%85zookeeper">&#x5B89;&#x88C5;Zookeeper</h3>
 
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># &#x4E0B;&#x8F7D;Zookeeper</span>
+<span class="token assign-left variable">ZOOKEEPER_REPOSITORY</span><span class="token operator">=</span><span class="token string">&apos;http://archive.apache.org/dist/zookeeper&apos;</span>
 <span class="token assign-left variable">ZOOKEEPER_LOCATION</span><span class="token operator">=</span><span class="token string">&apos;/zookeeper&apos;</span> <span class="token comment"># &#x5B89;&#x88C5;&#x4F4D;&#x7F6E;</span>
 <span class="token assign-left variable">ZOOKEEPER_VERSION</span><span class="token operator">=</span><span class="token string">&apos;3.5.9&apos;</span>       <span class="token comment"># &#x5B89;&#x88C5;&#x7248;&#x672C;</span>
-<span class="token assign-left variable">ZOOKEEPER_REPOSITORY</span><span class="token operator">=</span><span class="token string">&apos;http://archive.apache.org/dist/zookeeper&apos;</span>
 <span class="token assign-left variable">ZOOKEEPER_ARCHIVE</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${ZOOKEEPER_REPOSITORY}</span>/zookeeper-<span class="token variable">${ZOOKEEPER_VERSION}</span>/apache-zookeeper-<span class="token variable">${ZOOKEEPER_VERSION}</span>-bin.tar.gz&quot;</span>
 <span class="token builtin class-name">echo</span> <span class="token variable">$ZOOKEEPER_ARCHIVE</span>
 <span class="token function">wget</span> <span class="token variable">$ZOOKEEPER_ARCHIVE</span>

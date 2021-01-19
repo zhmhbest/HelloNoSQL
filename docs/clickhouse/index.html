@@ -265,7 +265,189 @@ pre[data-line] .line-highlight[data-end]:after {
 <script src="https://zhmhbest.gitee.io/hellomathematics/style/index.js"></script>
 <h1 class="mume-header" id="clickhouseindexhtml"><a href="../index.html">ClickHouse</a></h1>
 
+<ul>
+<li><a href="#clickhouseindexhtml">ClickHouse</a>
+<ul>
+<li><a href="#%E7%B3%BB%E7%BB%9F">&#x7CFB;&#x7EDF;</a>
+<ul>
+<li><a href="#%E4%BE%9D%E8%B5%96%E6%A3%80%E6%9F%A5">&#x4F9D;&#x8D56;&#x68C0;&#x67E5;</a></li>
+<li><a href="#%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99">&#x5173;&#x95ED;&#x9632;&#x706B;&#x5899;</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AEhostszookeeperindexhtml%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE">&#x914D;&#x7F6E;Hosts</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85zookeeperzookeeperindexhtml">&#x5B89;&#x88C5;Zookeeper</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%89%E8%A3%85clickhouse">&#x5B89;&#x88C5;ClickHouse</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AEclickhouse">&#x914D;&#x7F6E;ClickHouse</a>
+<ul>
+<li><a href="#configxmlhttpsclickhousetechdocszhoperationsconfiguration-files">config.xml</a></li>
+<li><a href="#userxml">user.xml</a></li>
+<li><a href="#metricaxml">metrica.xml</a></li>
+</ul>
+</li>
+<li><a href="#%E8%B0%83%E8%AF%95clickhouse">&#x8C03;&#x8BD5;ClickHouse</a>
+<ul>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86">&#x670D;&#x52A1;&#x7BA1;&#x7406;</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4">&#x6D4B;&#x8BD5;&#x96C6;&#x7FA4;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="%E7%B3%BB%E7%BB%9F">&#x7CFB;&#x7EDF;</h2>
 
+<h3 class="mume-header" id="%E4%BE%9D%E8%B5%96%E6%A3%80%E6%9F%A5">&#x4F9D;&#x8D56;&#x68C0;&#x67E5;</h3>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># CPU&#x5FC5;&#x987B;&#x652F;&#x6301;SSE4.2&#x6307;&#x4EE4;&#x96C6;</span>
+<span class="token function">grep</span> -q sse4_2 /proc/cpuinfo <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">echo</span> <span class="token string">&quot;Supported&quot;</span>
+
+<span class="token comment"># &#x4F9D;&#x8D56;glibc-2.16</span>
+yum info glibc <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">&apos;^Version&apos;</span> <span class="token operator">|</span> <span class="token function">uniq</span>
+<span class="token comment"># yum -y install glibc glibc-headers glibc-common glibc-devel</span>
+</pre><h3 class="mume-header" id="%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99">&#x5173;&#x95ED;&#x9632;&#x706B;&#x5899;</h3>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash">systemctl disable firewalld.service
+systemctl stop firewalld.service
+firewall-cmd --state
+</pre><h3 class="mume-header" id="%E9%85%8D%E7%BD%AEhostszookeeperindexhtml%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE"><a href="../zookeeper/index.html#%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE">&#x914D;&#x7F6E;Hosts</a></h3>
+
+<h3 class="mume-header" id="%E5%AE%89%E8%A3%85zookeeperzookeeperindexhtml"><a href="../zookeeper/index.html">&#x5B89;&#x88C5;Zookeeper</a></h3>
+
+<h2 class="mume-header" id="%E5%AE%89%E8%A3%85clickhouse">&#x5B89;&#x88C5;ClickHouse</h2>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">mkdir</span> clickhouse<span class="token punctuation">;</span> <span class="token function">pushd</span> clickhouse
+
+<span class="token comment"># CLICKHOUSE_REPO=&apos;https://repo.yandex.ru/clickhouse/rpm/stable/x86_64&apos;</span>
+<span class="token assign-left variable">CLICKHOUSE_REPO</span><span class="token operator">=</span><span class="token string">&apos;http://192.168.19.90/files/clickhouse&apos;</span>
+<span class="token assign-left variable">CLICKHOUSE_VERSION</span><span class="token operator">=</span><span class="token string">&apos;20.8.3.18-2&apos;</span>
+<span class="token comment"># echo &quot;${CLICKHOUSE_REPO}/clickhouse-common-static-${CLICKHOUSE_VERSION}.x86_64.rpm&quot;</span>
+<span class="token comment"># echo &quot;${CLICKHOUSE_REPO}/clickhouse-server-${CLICKHOUSE_VERSION}.noarch.rpm&quot;</span>
+<span class="token comment"># echo &quot;${CLICKHOUSE_REPO}/clickhouse-client-${CLICKHOUSE_VERSION}.noarch.rpm&quot;</span>
+<span class="token function">wget</span> <span class="token string">&quot;<span class="token variable">${CLICKHOUSE_REPO}</span>/clickhouse-common-static-<span class="token variable">${CLICKHOUSE_VERSION}</span>.x86_64.rpm&quot;</span>
+<span class="token function">wget</span> <span class="token string">&quot;<span class="token variable">${CLICKHOUSE_REPO}</span>/clickhouse-server-<span class="token variable">${CLICKHOUSE_VERSION}</span>.noarch.rpm&quot;</span>
+<span class="token function">wget</span> <span class="token string">&quot;<span class="token variable">${CLICKHOUSE_REPO}</span>/clickhouse-client-<span class="token variable">${CLICKHOUSE_VERSION}</span>.noarch.rpm&quot;</span>
+
+yum -y localinstall ./*.rpm
+<span class="token function">popd</span>
+
+systemctl stop clickhouse-server
+systemctl status clickhouse-server
+<span class="token comment"># systemctl start clickhouse-server</span>
+</pre><h2 class="mume-header" id="%E9%85%8D%E7%BD%AEclickhouse">&#x914D;&#x7F6E;ClickHouse</h2>
+
+<h3 class="mume-header" id="configxmlhttpsclickhousetechdocszhoperationsconfiguration-files"><a href="https://clickhouse.tech/docs/zh/operations/configuration-files/">config.xml</a></h3>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">vim</span> /etc/clickhouse-server/config.xml
+<span class="token comment"># :?&lt;listen_host&gt;</span>
+<span class="token comment"># &lt;Enter&gt;</span>
+<span class="token comment"># ...</span>
+<span class="token comment"># :?&lt;interserver_http_host&gt;</span>
+<span class="token comment"># &lt;Enter&gt;</span>
+<span class="token comment"># ...</span>
+<span class="token comment"># wq</span>
+<span class="token function">grep</span> <span class="token string">&apos;&lt;listen_host&gt;&apos;</span> /etc/clickhouse-server/config.xml
+<span class="token function">grep</span> <span class="token string">&apos;&lt;interserver_http_host&gt;&apos;</span> /etc/clickhouse-server/config.xml
+</pre><pre data-role="codeBlock" data-info="xml" class="language-xml">    <span class="token comment">&lt;!-- &#x5168;&#x57DF;&#x66B4;&#x9732; --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>listen_host</span><span class="token punctuation">&gt;</span></span>::<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>listen_host</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>listen_host</span><span class="token punctuation">&gt;</span></span>0.0.0.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>listen_host</span><span class="token punctuation">&gt;</span></span>
+</pre><pre data-role="codeBlock" data-info="xml" class="language-xml">    <span class="token comment">&lt;!-- &#x4E3B;&#x673A;&#x540D;&#x79F0;&#xFF08;&#x9700;&#x8981;&#x5B9A;&#x5236;&#xFF09; --&gt;</span>
+    <span class="token comment">&lt;!-- &#x2193;&#x2193;&#x2193;`hostname -f`&#x2193;&#x2193;&#x2193; --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>interserver_http_host</span><span class="token punctuation">&gt;</span></span>clickhouse1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>interserver_http_host</span><span class="token punctuation">&gt;</span></span>
+    <span class="token comment">&lt;!-- &#x2191;&#x2191;&#x2191;`hostname -f`&#x2191;&#x2191;&#x2191; --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>timezone</span><span class="token punctuation">&gt;</span></span>Asia/Shanghai<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>timezone</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>include_from</span><span class="token punctuation">&gt;</span></span>/etc/clickhouse-server/metrika.xml<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>include_from</span><span class="token punctuation">&gt;</span></span>
+</pre><h3 class="mume-header" id="userxml">user.xml</h3>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">vim</span> /etc/clickhouse-server/users.xml
+<span class="token comment"># :?&lt;password&gt;</span>
+<span class="token function">grep</span> <span class="token string">&apos;^ *&lt;password&gt;&apos;</span> /etc/clickhouse-server/users.xml
+</pre><pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>password</span><span class="token punctuation">&gt;</span></span>default<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>password</span><span class="token punctuation">&gt;</span></span>&gt;
+</pre><h3 class="mume-header" id="metricaxml">metrica.xml</h3>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">rm</span> -f /etc/clickhouse-server/metrika.xml
+<span class="token function">vim</span> /etc/clickhouse-server/metrika.xml
+</pre><pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>yandex</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>clickhouse_remote_servers</span><span class="token punctuation">&gt;</span></span>
+        <span class="token comment">&lt;!-- &#x81EA;&#x5B9A;&#x4E49;&#x96C6;&#x7FA4;&#x540D;&#x79F0; --&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ck_cluster</span><span class="token punctuation">&gt;</span></span>
+            <span class="token comment">&lt;!-- &#x5206;&#x7247;1 --&gt;</span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>shard</span><span class="token punctuation">&gt;</span></span>
+                <span class="token comment">&lt;!-- &#x5206;&#x7247;&#x6743;&#x91CD;&#xFF0C;&#x591A;&#x5C11;&#x6982;&#x7387;&#x5199;&#x5165;&#x6B64;&#x5206;&#x7247; --&gt;</span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>weight</span><span class="token punctuation">&gt;</span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>weight</span><span class="token punctuation">&gt;</span></span>
+                <span class="token comment">&lt;!-- &#x4E0D;&#x53EA;&#x5C06;&#x6570;&#x636E;&#x5199;&#x5165;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x526F;&#x672C; --&gt;</span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>internal_replication</span><span class="token punctuation">&gt;</span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>internal_replication</span><span class="token punctuation">&gt;</span></span>
+                <span class="token comment">&lt;!-- &#x526F;&#x672C;1 --&gt;</span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>replica</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>host</span><span class="token punctuation">&gt;</span></span>clickhouse1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>host</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>port</span><span class="token punctuation">&gt;</span></span>9000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>port</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>replica</span><span class="token punctuation">&gt;</span></span>
+                <span class="token comment">&lt;!-- &#x526F;&#x672C;2 --&gt;</span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>replica</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>host</span><span class="token punctuation">&gt;</span></span>clickhouse2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>host</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>port</span><span class="token punctuation">&gt;</span></span>9000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>port</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>replica</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>shard</span><span class="token punctuation">&gt;</span></span>
+            <span class="token comment">&lt;!-- &#x5206;&#x7247;2 --&gt;</span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>shard</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>weight</span><span class="token punctuation">&gt;</span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>weight</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>internal_replication</span><span class="token punctuation">&gt;</span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>internal_replication</span><span class="token punctuation">&gt;</span></span>
+                <span class="token comment">&lt;!-- &#x526F;&#x672C;1 --&gt;</span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>replica</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>host</span><span class="token punctuation">&gt;</span></span>clickhouse3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>host</span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>port</span><span class="token punctuation">&gt;</span></span>9000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>port</span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>replica</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>shard</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ck_cluster</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>clickhouse_remote_servers</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>zookeeper-servers</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">index</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>1<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>host</span><span class="token punctuation">&gt;</span></span>zookeeper1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>host</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>port</span><span class="token punctuation">&gt;</span></span>2181<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>port</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>node</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">index</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>2<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>host</span><span class="token punctuation">&gt;</span></span>zookeeper2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>host</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>port</span><span class="token punctuation">&gt;</span></span>2181<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>port</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>node</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>node</span> <span class="token attr-name">index</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>3<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>host</span><span class="token punctuation">&gt;</span></span>zookeeper3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>host</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>port</span><span class="token punctuation">&gt;</span></span>2181<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>port</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>node</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>zookeeper-servers</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token comment">&lt;!-- &#x5F53;&#x524D;&#x4E3B;&#x673A;&#x6240;&#x5728;&#x96C6;&#x7FA4;-&#x5206;&#x7247;-&#x526F;&#x672C;&#xFF08;&#x9700;&#x8981;&#x5B9A;&#x5236;&#xFF09; --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>macros</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layer</span><span class="token punctuation">&gt;</span></span>ck_cluster<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layer</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>shard</span><span class="token punctuation">&gt;</span></span>01<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>shard</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>replica</span><span class="token punctuation">&gt;</span></span>clickhouse1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>replica</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>macros</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>networks</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ip</span><span class="token punctuation">&gt;</span></span>::/0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ip</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>networks</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>clickhouse_compression</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>case</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>min_part_size</span><span class="token punctuation">&gt;</span></span>10000000000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>min_part_size</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>min_part_size_ratio</span><span class="token punctuation">&gt;</span></span>0.01<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>min_part_size_ratio</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>method</span><span class="token punctuation">&gt;</span></span>lz4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>method</span><span class="token punctuation">&gt;</span></span>
+            <span class="token comment">&lt;!-- &#x538B;&#x7F29;&#x7B97;&#x6CD5;: zstd | lz4 --&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>case</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>clickhouse_compression</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>yandex</span><span class="token punctuation">&gt;</span></span>
+</pre><h2 class="mume-header" id="%E8%B0%83%E8%AF%95clickhouse">&#x8C03;&#x8BD5;ClickHouse</h2>
+
+<h3 class="mume-header" id="%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86">&#x670D;&#x52A1;&#x7BA1;&#x7406;</h3>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Debug&#x8FD0;&#x884C;</span>
+<span class="token function">sudo</span> -u clickhouse clickhouse-server --config-file<span class="token operator">=</span>/etc/clickhouse-server/config.xml
+</pre><pre data-role="codeBlock" data-info="bash" class="language-bash">systemctl start clickhouse-server
+systemctl restart clickhouse-server
+systemctl status clickhouse-server
+</pre><h3 class="mume-header" id="%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4">&#x6D4B;&#x8BD5;&#x96C6;&#x7FA4;</h3>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash">clickhouse-client -m
+</pre><pre data-role="codeBlock" data-info="SQL" class="language-sql"><span class="token comment">-- &#x5F85;&#x8865;&#x5145;</span>
+</pre>
       </div>
       
       

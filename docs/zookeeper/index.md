@@ -92,6 +92,7 @@ tail -n 5 $ZOOKEEPER_HOME/conf/zoo.cfg
 ### 服务管理
 
 ```bash
-# start | stop | restart
+# start | stop | restart | status
 zkServer.sh start
+zkServer.sh status
 ```

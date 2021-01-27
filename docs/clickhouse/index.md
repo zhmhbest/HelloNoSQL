@@ -235,6 +235,9 @@ ENGINE = Distributed(
 INSERT INTO dbname.table_local values('2020-03-11 12:12:33',22,46);
 INSERT INTO dbname.table_distributed values('2020-03-11',22,54),('2020-03-11',22,57),('2020-03-12',22,58);
 
+-- 删除数据
+ALTER TABLE dbname.table_local ON CLUSTER ck_cluster DELETE WHERE 1=1
+
 -- 删除测试
 DROP TABLE IF EXISTS dbname.table_distributed ON CLUSTER ck_cluster;
 DROP TABLE IF EXISTS dbname.table_local ON CLUSTER ck_cluster;

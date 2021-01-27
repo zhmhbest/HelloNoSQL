@@ -232,8 +232,8 @@ ENGINE = Distributed(
 -- Distributed({cluster}, '{local_database}', '{local_table}', rand())
 
 -- 测试插入
-INSERT INTO dbname.table_local values('2020-03-11 12:12:33',22,46);
-INSERT INTO dbname.table_distributed values('2020-03-11',22,54),('2020-03-11',22,57),('2020-03-12',22,58);
+INSERT INTO dbname.table_local VALUES('2020-03-11 12:12:33',22,46);
+INSERT INTO dbname.table_distributed VALUES('2020-03-11',22,54),('2020-03-11',22,57),('2020-03-12',22,58);
 
 -- 删除数据
 ALTER TABLE dbname.table_local ON CLUSTER ck_cluster DELETE WHERE 1=1

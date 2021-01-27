@@ -36,7 +36,7 @@ firewall-cmd --state
 mkdir clickhouse; pushd clickhouse
 
 # CLICKHOUSE_REPO='https://repo.yandex.ru/clickhouse/rpm/stable/x86_64'
-CLICKHOUSE_REPO='http://192.168.19.90/files/clickhouse'
+CLICKHOUSE_REPO='http://192.168.19.90/files/clickhouse/rpm'
 CLICKHOUSE_VERSION='20.8.3.18-2'
 # echo "${CLICKHOUSE_REPO}/clickhouse-common-static-${CLICKHOUSE_VERSION}.x86_64.rpm"
 # echo "${CLICKHOUSE_REPO}/clickhouse-server-${CLICKHOUSE_VERSION}.noarch.rpm"

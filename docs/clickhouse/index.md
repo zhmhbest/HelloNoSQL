@@ -197,10 +197,20 @@ systemctl status clickhouse-server
 clickhouse-client -m
 ```
 
+#### 数据库
+
 ```SQL
 -- 创建集群库
 CREATE DATABASE IF NOT EXISTS dbname ON CLUSTER ck_cluster;
 
+-- 删除集群库
+DROP DATABASE IF EXISTS dbname ON CLUSTER ck_cluster;
+
+```
+
+#### 表
+
+```SQL
 -- 创建本地表并同步到集群
 CREATE TABLE IF NOT EXISTS
     dbname.table_local
@@ -216,7 +226,7 @@ PARTITION BY (EventDate)
 ORDER BY (CounterID, intHash32(UserID))
 SAMPLE BY intHash32(UserID);
 
--- 创建集群表（相当于视图）
+-- 基于本地表创建集群表（相当于视图）
 CREATE TABLE IF NOT EXISTS
     dbname.table_distributed
 ON CLUSTER
@@ -239,14 +249,23 @@ ENGINE = Distributed(
 INSERT INTO dbname.table_distributed VALUES('2020-03-11',22,54),('2020-03-11',22,57),('2020-03-12',22,58);
 ALTER TABLE dbname.table_local ON CLUSTER ck_cluster DELETE WHERE UserID=54;
 
--- 集群表注意事项
+-- 【集群表注意事项】
 -- 集群表插入会有延时情况
 -- GLOBAL IN 代替 IN
+-- GLOBAL NOT JOIN 代替 NOT JOIN
 -- GLOBAL JOIN 代替 JOIN
 
--- 清空本地表数据并同步到集群
+-- 清空本地表数据并同步到集群（清空集群表）
 TRUNCATE TABLE IF EXISTS dbname.table_local ON CLUSTER ck_cluster;
 
+-- 删除表
+DROP TABLE IF EXISTS dbname.table_distributed ON CLUSTER ck_cluster;
+DROP TABLE IF EXISTS dbname.table_local ON CLUSTER ck_cluster;
+```
+
+#### 分区
+
+```SQL
 -- 查看本地表分区
 SELECT
     `name`,
@@ -260,11 +279,11 @@ WHERE
 
 -- 删除本地表分区并同步到集群
 ALTER TABLE dbname.table_local ON CLUSTER ck_cluster DROP PARTITION 'partition';
+```
 
--- 删除表
-DROP TABLE IF EXISTS dbname.table_distributed ON CLUSTER ck_cluster;
-DROP TABLE IF EXISTS dbname.table_local ON CLUSTER ck_cluster;
+#### 其它
 
--- 删除集群库
-DROP DATABASE IF EXISTS dbname ON CLUSTER ck_cluster;
+```SQL
+-- 正则匹配
+SELECT DISTINCT(region) FROM dbname.table_distributed WHERE NOT match(region , '^[0-9]+$');
 ```

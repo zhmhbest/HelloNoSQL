@@ -3,7 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
       
       
       
@@ -346,6 +346,9 @@ pre[data-line] .line-highlight[data-end]:after {
 </ul>
 <h3 class="mume-header" id="windows%E5%AE%89%E8%A3%85">Windows&#x5B89;&#x88C5;</h3>
 
+<ul>
+<li><a href="https://github.com/cdarlint/winutils">Download winutils</a></li>
+</ul>
 <p>&#x5C55;&#x5F00;<code>hadoop-*.tar.gz</code>&#xFF0C;&#x5C06;&#x6839;&#x76EE;&#x5F55;&#x5730;&#x5740;&#x6DFB;&#x52A0;&#x5230;&#x73AF;&#x5883;&#x53D8;&#x91CF;<code>HADOOP_HOME</code>&#x3001;&#x5728;<code>PATH</code>&#x540E;&#x8FFD;&#x52A0;<code>%HADOOP_HOME%\bin</code>&#x3001;<code>%HADOOP_HOME%\sbin</code>&#x3002;</p>
 <h4 class="mume-header" id="%E6%B5%8B%E8%AF%95">&#x6D4B;&#x8BD5;</h4>
 
@@ -364,30 +367,30 @@ javac -version
 <span class="token function">rpm</span> -qa <span class="token operator">|</span> <span class="token function">grep</span> java
 
 <span class="token comment"># &#x914D;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;</span>
-<span class="token keyword">echo</span> <span class="token string">&quot;&quot;</span><span class="token operator">&gt;&gt;</span>~/.bashrc
-JAVA_HOME<span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token keyword">echo</span> /usr/lib/jvm/java-*-openjdk-*-*<span class="token variable">)</span></span><span class="token punctuation">;</span> <span class="token keyword">echo</span> <span class="token variable">$JAVA_HOME</span>
-<span class="token keyword">echo</span> <span class="token string">&quot;export JAVA_HOME=<span class="token variable">$JAVA_HOME</span>&quot;</span><span class="token operator">&gt;&gt;</span>~/.bashrc
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;&quot;</span><span class="token operator">&gt;&gt;</span>~/.bashrc
+<span class="token assign-left variable">JAVA_HOME</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> /usr/lib/jvm/java-*-openjdk-*-*<span class="token variable">)</span></span><span class="token punctuation">;</span> <span class="token builtin class-name">echo</span> <span class="token variable">$JAVA_HOME</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;export JAVA_HOME=<span class="token variable">$JAVA_HOME</span>&quot;</span><span class="token operator">&gt;&gt;</span>~/.bashrc
 </pre><h4 class="mume-header" id="%E5%AE%89%E8%A3%85hadoop">&#x5B89;&#x88C5;Hadoop</h4>
 
-<pre data-role="codeBlock" data-info="bash" class="language-bash">workspace<span class="token operator">=</span><span class="token string">&apos;/usr/local/programs&apos;</span>
-<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token operator">!</span> -e <span class="token variable">$workspace</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span> <span class="token function">mkdir</span> <span class="token variable">$workspace</span><span class="token punctuation">;</span> <span class="token keyword">fi</span><span class="token punctuation">;</span> <span class="token function">cd</span> <span class="token variable">$workspace</span>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token assign-left variable">workspace</span><span class="token operator">=</span><span class="token string">&apos;/usr/local/programs&apos;</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token operator">!</span> -e <span class="token variable">$workspace</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span> <span class="token function">mkdir</span> <span class="token variable">$workspace</span><span class="token punctuation">;</span> <span class="token keyword">fi</span><span class="token punctuation">;</span> <span class="token builtin class-name">cd</span> <span class="token variable">$workspace</span>
 <span class="token comment"># &#x4E0A;&#x4F20; hadoop-*.tar.gz &#x5230; $workspace</span>
 
 <span class="token comment"># &#x83B7;&#x53D6;&#x540D;&#x79F0;</span>
-hadoop_tar<span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token keyword">echo</span> ./hadoop-*.tar.gz<span class="token variable">)</span></span>
-hadoop_file<span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">basename</span> $<span class="token punctuation">{</span>hadoop_tar<span class="token punctuation">}</span><span class="token variable">)</span></span>
-hadoop_name<span class="token operator">=</span><span class="token variable">${hadoop_file%.*}</span><span class="token punctuation">;</span> hadoop_name<span class="token operator">=</span><span class="token variable">${hadoop_name%.*}</span>
+<span class="token assign-left variable">hadoop_tar</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> ./hadoop-*.tar.gz<span class="token variable">)</span></span>
+<span class="token assign-left variable">hadoop_file</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">basename</span> $<span class="token punctuation">{</span>hadoop_tar<span class="token punctuation">}</span><span class="token variable">)</span></span>
+<span class="token assign-left variable">hadoop_name</span><span class="token operator">=</span><span class="token variable">${hadoop_file<span class="token operator">%</span>.*}</span><span class="token punctuation">;</span> <span class="token assign-left variable">hadoop_name</span><span class="token operator">=</span><span class="token variable">${hadoop_name<span class="token operator">%</span>.*}</span>
 
 <span class="token comment"># &#x5C55;&#x5F00;</span>
 <span class="token function">tar</span> -zxvf <span class="token variable">$hadoop_tar</span> -C ./
 
 <span class="token comment"># &#x914D;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;</span>
-HADOOP_HOME<span class="token operator">=</span><span class="token variable">$workspace</span>/<span class="token variable">$hadoop_name</span>
-<span class="token keyword">echo</span> <span class="token string">&quot;export HADOOP_HOME=<span class="token variable">$HADOOP_HOME</span>&quot;</span><span class="token operator">&gt;&gt;</span>~/.bashrc
+<span class="token assign-left variable">HADOOP_HOME</span><span class="token operator">=</span><span class="token variable">$workspace</span>/<span class="token variable">$hadoop_name</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;export HADOOP_HOME=<span class="token variable">$HADOOP_HOME</span>&quot;</span><span class="token operator">&gt;&gt;</span>~/.bashrc
 </pre><h4 class="mume-header" id="%E9%85%8D%E7%BD%AEpath">&#x914D;&#x7F6E;PATH</h4>
 
-<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token keyword">echo</span> <span class="token string">&apos;export PATH=<span class="token variable">$JAVA_HOME</span>/bin:<span class="token variable">$HADOOP_HOME</span>/bin:<span class="token variable">$HADOOP_HOME</span>/sbin:<span class="token variable">$PATH</span>;&apos;</span><span class="token operator">&gt;&gt;</span>~/.bashrc
-<span class="token function">source</span> ~/.bashrc
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">&apos;export PATH=<span class="token variable">$JAVA_HOME</span>/bin:<span class="token variable">$HADOOP_HOME</span>/bin:<span class="token variable">$HADOOP_HOME</span>/sbin:<span class="token environment constant">$PATH</span>;&apos;</span><span class="token operator">&gt;&gt;</span>~/.bashrc
+<span class="token builtin class-name">source</span> ~/.bashrc
 </pre><h4 class="mume-header" id="%E6%B5%8B%E8%AF%95-1">&#x6D4B;&#x8BD5;</h4>
 
 <pre data-role="codeBlock" data-info="bash" class="language-bash">hadoop version
@@ -399,7 +402,7 @@ HADOOP_HOME<span class="token operator">=</span><span class="token variable">$wo
 <p>&#x4EC5;1&#x4E2A;&#x8282;&#x70B9;&#x8FD0;&#x884C;1&#x4E2A;java&#x8FDB;&#x7A0B;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x8C03;&#x8BD5;&#x3002;</p>
 <h4 class="mume-header" id="demo">demo</h4>
 
-<pre data-role="codeBlock" data-info="bash" class="language-bash">workspace<span class="token operator">=</span>/tmp/demo
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token assign-left variable">workspace</span><span class="token operator">=</span>/tmp/demo
 <span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token operator">!</span> -e <span class="token variable">$workspace</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span> <span class="token function">mkdir</span> <span class="token variable">$workspace</span><span class="token punctuation">;</span> <span class="token keyword">fi</span>
 <span class="token function">pushd</span> <span class="token variable">$workspace</span>
 
@@ -407,7 +410,7 @@ HADOOP_HOME<span class="token operator">=</span><span class="token variable">$wo
 <span class="token function">cp</span> <span class="token variable">$HADOOP_HOME</span>/etc/hadoop/*.xml input
 
 <span class="token comment"># &#x4F8B;&#x5B50;</span>
-example_jar<span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token keyword">echo</span> $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar<span class="token variable">)</span></span><span class="token punctuation">;</span> <span class="token keyword">echo</span> <span class="token variable">$example_jar</span>
+<span class="token assign-left variable">example_jar</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar<span class="token variable">)</span></span><span class="token punctuation">;</span> <span class="token builtin class-name">echo</span> <span class="token variable">$example_jar</span>
 
 <span class="token comment"># &#x5355;&#x673A;&#x6A21;&#x5F0F;&#x8FD0;&#x884C;MapReduce</span>
 hadoop jar <span class="token variable">$example_jar</span> wordcount input <span class="token string">&apos;dfs[az]+&apos;</span>
@@ -447,11 +450,11 @@ hadoop jar <span class="token variable">$example_jar</span> wordcount input <spa
 <span class="token comment"># - NodeManager&#xFF1A;&#x6267;&#x884C;&#x5728;&#x5355;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x7684;&#x4EE3;&#x7406;&#xFF0C;&#x5B83;&#x7BA1;&#x7406;Hadoop&#x96C6;&#x7FA4;&#x4E2D;&#x5355;&#x4E2A;&#x8BA1;&#x7B97;&#x8282;&#x70B9;</span>
 
 <span class="token comment"># &#x2193;&#x2193;&#x2193;&#x8FFD;&#x52A0;&#x5185;&#x5BB9;&#x2193;&#x2193;&#x2193;</span>
-HDFS_NAMENODE_USER<span class="token operator">=</span>root
-HDFS_SECONDARYNAMENODE_USER<span class="token operator">=</span>root
-HDFS_DATANODE_USER<span class="token operator">=</span>root
-YARN_RESOURCEMANAGER_USER<span class="token operator">=</span>root
-YARN_NODEMANAGER_USER<span class="token operator">=</span>root
+<span class="token assign-left variable">HDFS_NAMENODE_USER</span><span class="token operator">=</span>root
+<span class="token assign-left variable">HDFS_SECONDARYNAMENODE_USER</span><span class="token operator">=</span>root
+<span class="token assign-left variable">HDFS_DATANODE_USER</span><span class="token operator">=</span>root
+<span class="token assign-left variable">YARN_RESOURCEMANAGER_USER</span><span class="token operator">=</span>root
+<span class="token assign-left variable">YARN_NODEMANAGER_USER</span><span class="token operator">=</span>root
 <span class="token comment"># &#x2191;&#x2191;&#x2191;&#x8FFD;&#x52A0;&#x5185;&#x5BB9;&#x2191;&#x2191;&#x2191;</span>
 </pre><p><code>authorized_keys</code></p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash">ssh-keygen -t rsa -P <span class="token string">&quot;&quot;</span>

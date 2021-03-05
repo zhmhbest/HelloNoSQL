@@ -401,115 +401,16 @@ vim pom.xml
 
 `pom.xml`
 
-```xml
-<!-- ... -->
-<dependencies>
-    <!-- <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>3.8.1</version>
-        <scope>test</scope>
-    </dependency> -->
+@import "pom.xml"
 
-    <!-- Java API: 二进制传输 -->
-    <!-- <dependency>
-        <groupId>org.elasticsearch.client</groupId>
-        <artifactId>transport</artifactId>
-        <version>7.10.1</version>
-    </dependency> -->
+#### Transport
 
-    <!-- Rest Low-level API -->
-    <dependency>
-        <groupId>org.elasticsearch.client</groupId>
-        <artifactId>elasticsearch-rest-client</artifactId>
-        <version>7.10.1</version>
-    </dependency>
-
-    <!-- Rest High-level API （推荐） -->
-    <dependency>
-        <groupId>org.elasticsearch.client</groupId>
-        <artifactId>elasticsearch-rest-high-level-client</artifactId>
-        <version>7.10.1</version>
-    </dependency>
-</dependencies>
-<!-- ... -->
-```
+@import "src\main\java\org\example\es\AppTransport.java"
 
 #### Low-level
 
-```java
-package org.example.es;
-
-import java.io.IOException;
-
-import org.apache.http.Header;
-import org.apache.http.HttpHost;
-import org.apache.http.RequestLine;
-import org.apache.http.util.EntityUtils;
-import org.elasticsearch.client.Request;
-import org.elasticsearch.client.Response;
-import org.elasticsearch.client.RestClient;
-
-/**
- * Elasticsearch
- * https://www.elastic.co/guide/en/elasticsearch/client/java-rest/5.6
- * https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.10.1
- */
-public class App {
-    public static void main(String[] args) throws IOException {
-        RestClient restClient = RestClient.builder(
-            new HttpHost("localhost", 9200, "http")
-        ).build();
-
-        // 5.6.4
-        // Response response = restClient.performRequest("GET", "/");
-        // 7.10.1
-        Request request = new Request("GET", "/");
-        Response response = restClient.performRequest(request);
-
-        RequestLine requestLine = response.getRequestLine();
-        System.out.println(requestLine);
-
-        HttpHost host = response.getHost();
-        System.out.println(host);
-
-        int statusCode = response.getStatusLine().getStatusCode();
-        System.out.println(statusCode);
-
-        Header[] headers = response.getHeaders();
-        for (Header header: headers) {
-            System.out.println(header);
-        }
-
-        String responseBody = EntityUtils.toString(response.getEntity());
-        System.out.println(responseBody);
-
-        restClient.close();
-    }
-}
-```
+@import "src\main\java\org\example\es\AppLowLevel.java"
 
 #### High-level
 
-```java
-package org.example.es;
-
-import org.apache.http.HttpHost;
-import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestHighLevelClient;
-import java.io.IOException;
-
-/**
- * Elasticsearch
- * https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.x/java-rest-high-supported-apis.html
- */
-public class App {
-    public static void main(String[] args) throws IOException {
-        RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(
-            new HttpHost("localhost", 9200, "http")
-        ));
-        // ...
-        client.close();
-    }
-}
-```
+@import "src\main\java\org\example\es\AppHighLevel.java"

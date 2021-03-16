@@ -268,6 +268,8 @@ pre[data-line] .line-highlight[data-end]:after {
 <ul>
 <li><a href="#clickhouseindexhtml">ClickHouse</a>
 <ul>
+<li><a href="#%E5%AE%89%E8%A3%85">&#x5B89;&#x88C5;</a>
+<ul>
 <li><a href="#%E7%B3%BB%E7%BB%9F">&#x7CFB;&#x7EDF;</a>
 <ul>
 <li><a href="#%E4%BE%9D%E8%B5%96%E6%A3%80%E6%9F%A5">&#x4F9D;&#x8D56;&#x68C0;&#x67E5;</a></li>
@@ -290,7 +292,9 @@ pre[data-line] .line-highlight[data-end]:after {
 <li><a href="#%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4">&#x6D4B;&#x8BD5;&#x96C6;&#x7FA4;</a></li>
 </ul>
 </li>
-<li><a href="#ck_sql">CK_SQL</a>
+</ul>
+</li>
+<li><a href="#sql">SQL</a>
 <ul>
 <li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93">&#x6570;&#x636E;&#x5E93;</a></li>
 <li><a href="#%E8%A1%A8">&#x8868;</a></li>
@@ -302,9 +306,11 @@ pre[data-line] .line-highlight[data-end]:after {
 </ul>
 </li>
 </ul>
-<h2 class="mume-header" id="%E7%B3%BB%E7%BB%9F">&#x7CFB;&#x7EDF;</h2>
+<h2 class="mume-header" id="%E5%AE%89%E8%A3%85">&#x5B89;&#x88C5;</h2>
 
-<h3 class="mume-header" id="%E4%BE%9D%E8%B5%96%E6%A3%80%E6%9F%A5">&#x4F9D;&#x8D56;&#x68C0;&#x67E5;</h3>
+<h3 class="mume-header" id="%E7%B3%BB%E7%BB%9F">&#x7CFB;&#x7EDF;</h3>
+
+<h4 class="mume-header" id="%E4%BE%9D%E8%B5%96%E6%A3%80%E6%9F%A5">&#x4F9D;&#x8D56;&#x68C0;&#x67E5;</h4>
 
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># CPU&#x5FC5;&#x987B;&#x652F;&#x6301;SSE4.2&#x6307;&#x4EE4;&#x96C6;</span>
 <span class="token function">grep</span> -q sse4_2 /proc/cpuinfo <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">echo</span> <span class="token string">&quot;Supported&quot;</span>
@@ -312,16 +318,16 @@ pre[data-line] .line-highlight[data-end]:after {
 <span class="token comment"># &#x4F9D;&#x8D56;glibc-2.16</span>
 yum info glibc <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">&apos;^Version&apos;</span> <span class="token operator">|</span> <span class="token function">uniq</span>
 <span class="token comment"># yum -y install glibc glibc-headers glibc-common glibc-devel</span>
-</pre><h3 class="mume-header" id="%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99">&#x5173;&#x95ED;&#x9632;&#x706B;&#x5899;</h3>
+</pre><h4 class="mume-header" id="%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99">&#x5173;&#x95ED;&#x9632;&#x706B;&#x5899;</h4>
 
 <pre data-role="codeBlock" data-info="bash" class="language-bash">systemctl disable firewalld.service
 systemctl stop firewalld.service
 firewall-cmd --state
-</pre><h3 class="mume-header" id="%E9%85%8D%E7%BD%AEhostszookeeperindexhtml%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE"><a href="../zookeeper/index.html#%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE">&#x914D;&#x7F6E;Hosts</a></h3>
+</pre><h4 class="mume-header" id="%E9%85%8D%E7%BD%AEhostszookeeperindexhtml%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE"><a href="../zookeeper/index.html#%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE">&#x914D;&#x7F6E;Hosts</a></h4>
 
-<h3 class="mume-header" id="%E5%AE%89%E8%A3%85zookeeperzookeeperindexhtml"><a href="../zookeeper/index.html">&#x5B89;&#x88C5;Zookeeper</a></h3>
+<h4 class="mume-header" id="%E5%AE%89%E8%A3%85zookeeperzookeeperindexhtml"><a href="../zookeeper/index.html">&#x5B89;&#x88C5;Zookeeper</a></h4>
 
-<h2 class="mume-header" id="%E5%AE%89%E8%A3%85clickhouse">&#x5B89;&#x88C5;ClickHouse</h2>
+<h3 class="mume-header" id="%E5%AE%89%E8%A3%85clickhouse">&#x5B89;&#x88C5;ClickHouse</h3>
 
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">mkdir</span> clickhouse<span class="token punctuation">;</span> <span class="token function">pushd</span> clickhouse
 
@@ -341,9 +347,9 @@ yum -y localinstall ./*.rpm
 systemctl stop clickhouse-server
 systemctl status clickhouse-server
 <span class="token comment"># systemctl start clickhouse-server</span>
-</pre><h2 class="mume-header" id="%E9%85%8D%E7%BD%AEclickhouse">&#x914D;&#x7F6E;ClickHouse</h2>
+</pre><h3 class="mume-header" id="%E9%85%8D%E7%BD%AEclickhouse">&#x914D;&#x7F6E;ClickHouse</h3>
 
-<h3 class="mume-header" id="configxmlhttpsclickhousetechdocszhoperationsconfiguration-files"><a href="https://clickhouse.tech/docs/zh/operations/configuration-files/">config.xml</a></h3>
+<h4 class="mume-header" id="configxmlhttpsclickhousetechdocszhoperationsconfiguration-files"><a href="https://clickhouse.tech/docs/zh/operations/configuration-files/">config.xml</a></h4>
 
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">vim</span> /etc/clickhouse-server/config.xml
 <span class="token comment"># :?&lt;listen_host&gt;</span>
@@ -364,13 +370,13 @@ systemctl status clickhouse-server
     <span class="token comment">&lt;!-- &#x2191;&#x2191;&#x2191;`hostname -f`&#x2191;&#x2191;&#x2191; --&gt;</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>timezone</span><span class="token punctuation">&gt;</span></span>Asia/Shanghai<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>timezone</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>include_from</span><span class="token punctuation">&gt;</span></span>/etc/clickhouse-server/metrika.xml<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>include_from</span><span class="token punctuation">&gt;</span></span>
-</pre><h3 class="mume-header" id="userxml">user.xml</h3>
+</pre><h4 class="mume-header" id="userxml">user.xml</h4>
 
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">vim</span> /etc/clickhouse-server/users.xml
 <span class="token comment"># :?&lt;password&gt;</span>
 <span class="token function">grep</span> <span class="token string">&apos;^ *&lt;password&gt;&apos;</span> /etc/clickhouse-server/users.xml
 </pre><pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>password</span><span class="token punctuation">&gt;</span></span>default<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>password</span><span class="token punctuation">&gt;</span></span>&gt;
-</pre><h3 class="mume-header" id="metricaxml">metrica.xml</h3>
+</pre><h4 class="mume-header" id="metricaxml">metrica.xml</h4>
 
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">rm</span> -f /etc/clickhouse-server/metrika.xml
 <span class="token function">vim</span> /etc/clickhouse-server/metrika.xml
@@ -443,20 +449,23 @@ systemctl status clickhouse-server
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>case</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>clickhouse_compression</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>yandex</span><span class="token punctuation">&gt;</span></span>
-</pre><h2 class="mume-header" id="%E8%B0%83%E8%AF%95clickhouse">&#x8C03;&#x8BD5;ClickHouse</h2>
+</pre><h3 class="mume-header" id="%E8%B0%83%E8%AF%95clickhouse">&#x8C03;&#x8BD5;ClickHouse</h3>
 
-<h3 class="mume-header" id="%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86">&#x670D;&#x52A1;&#x7BA1;&#x7406;</h3>
+<h4 class="mume-header" id="%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86">&#x670D;&#x52A1;&#x7BA1;&#x7406;</h4>
 
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Debug&#x8FD0;&#x884C;</span>
 <span class="token function">sudo</span> -u clickhouse clickhouse-server --config-file<span class="token operator">=</span>/etc/clickhouse-server/config.xml
 </pre><pre data-role="codeBlock" data-info="bash" class="language-bash">systemctl start clickhouse-server
 systemctl restart clickhouse-server
 systemctl status clickhouse-server
-</pre><h3 class="mume-header" id="%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4">&#x6D4B;&#x8BD5;&#x96C6;&#x7FA4;</h3>
+</pre><h4 class="mume-header" id="%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4">&#x6D4B;&#x8BD5;&#x96C6;&#x7FA4;</h4>
 
 <pre data-role="codeBlock" data-info="bash" class="language-bash">clickhouse-client -m
-</pre><h2 class="mume-header" id="ck_sql">CK_SQL</h2>
+</pre><h2 class="mume-header" id="sql">SQL</h2>
 
+<blockquote>
+<p><a href="https://clickhouse.tech/docs/zh/sql-reference/syntax/">Clickhouse SQL</a></p>
+</blockquote>
 <h3 class="mume-header" id="%E6%95%B0%E6%8D%AE%E5%BA%93">&#x6570;&#x636E;&#x5E93;</h3>
 
 <pre data-role="codeBlock" data-info="SQL" class="language-sql"><span class="token comment">-- &#x521B;&#x5EFA;&#x96C6;&#x7FA4;&#x5E93;</span>

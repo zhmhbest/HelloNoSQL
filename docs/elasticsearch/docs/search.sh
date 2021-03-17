@@ -108,13 +108,8 @@ GET /${IndexName}/_search
 # 分页查询
 GET /${IndexName}/_search
 {
-  "from": 0,
-  "size": 2
-}
-GET /${IndexName}/_search
-{
-  "from": 1,
-  "size": 2
+  "from": ${Offset},
+  "size": ${PageSize}
 }
 
 ### 高亮匹配的内容
@@ -130,8 +125,8 @@ GET /${IndexName}/_search
     "post_tags": ["</a>"],
     "fields": {
       "${FieldName}": {
-        "pre_tags": ["<em>"],
-        "post_tags": ["</em>"],
+        "pre_tags": ["<b>"],
+        "post_tags": ["</b>"],
       }
     }
   }

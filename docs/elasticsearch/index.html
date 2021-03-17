@@ -282,9 +282,10 @@ pre[data-line] .line-highlight[data-end]:after {
 <li><a href="#index">Index</a></li>
 <li><a href="#document">Document</a></li>
 <li><a href="#search">Search</a></li>
-<li><a href="#ik%E5%88%86%E8%AF%8D%E5%99%A8">IK&#x5206;&#x8BCD;&#x5668;</a></li>
+<li><a href="#example">Example</a></li>
 </ul>
 </li>
+<li><a href="#ik%E5%88%86%E8%AF%8D%E5%99%A8">IK&#x5206;&#x8BCD;&#x5668;</a></li>
 <li><a href="#es-clients">ES Clients</a>
 <ul>
 <li><a href="#javascript">JavaScript</a></li>
@@ -475,7 +476,13 @@ POST /<span class="token variable">${IndexName}</span>/_doc
 <span class="token comment"># &#x67E5;&#x770B;&#x6240;&#x6709;&#x6587;&#x6863;</span>
 GET /<span class="token variable">${IndexName}</span>/_search
 
-<span class="token comment"># # &#x4FEE;&#x6539;&#x6587;&#x6863;</span>
+<span class="token comment"># &#x67E5;&#x770B;&#x6307;&#x5B9A;ID&#x6587;&#x6863;</span>
+GET /<span class="token variable">${IndexName}</span>/_doc/<span class="token variable">${ID}</span>
+
+<span class="token comment"># &#x5220;&#x9664;&#x6307;&#x5B9A;ID&#x6587;&#x6863;</span>
+DELETE /<span class="token variable">${IndexName}</span>/_doc/<span class="token variable">${ID}</span>
+
+<span class="token comment"># &#x4FEE;&#x6539;&#x6587;&#x6863;</span>
 POST /<span class="token variable">${IndexName}</span>/_update/<span class="token variable">${ID}</span>
 <span class="token punctuation">{</span>
     <span class="token string">&quot;doc&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
@@ -594,13 +601,8 @@ GET /<span class="token variable">${IndexName}</span>/_search
 <span class="token comment"># &#x5206;&#x9875;&#x67E5;&#x8BE2;</span>
 GET /<span class="token variable">${IndexName}</span>/_search
 <span class="token punctuation">{</span>
-  <span class="token string">&quot;from&quot;</span><span class="token builtin class-name">:</span> <span class="token number">0</span>,
-  <span class="token string">&quot;size&quot;</span><span class="token builtin class-name">:</span> <span class="token number">2</span>
-<span class="token punctuation">}</span>
-GET /<span class="token variable">${IndexName}</span>/_search
-<span class="token punctuation">{</span>
-  <span class="token string">&quot;from&quot;</span><span class="token builtin class-name">:</span> <span class="token number">1</span>,
-  <span class="token string">&quot;size&quot;</span><span class="token builtin class-name">:</span> <span class="token number">2</span>
+  <span class="token string">&quot;from&quot;</span><span class="token builtin class-name">:</span> <span class="token variable">${Offset}</span>,
+  <span class="token string">&quot;size&quot;</span><span class="token builtin class-name">:</span> <span class="token variable">${PageSize}</span>
 <span class="token punctuation">}</span>
 
 <span class="token comment">### &#x9AD8;&#x4EAE;&#x5339;&#x914D;&#x7684;&#x5185;&#x5BB9;</span>
@@ -616,13 +618,247 @@ GET /<span class="token variable">${IndexName}</span>/_search
     <span class="token string">&quot;post_tags&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">&quot;&lt;/a&gt;&quot;</span><span class="token punctuation">]</span>,
     <span class="token string">&quot;fields&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
       <span class="token string">&quot;<span class="token variable">${FieldName}</span>&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
-        <span class="token string">&quot;pre_tags&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">&quot;&lt;em&gt;&quot;</span><span class="token punctuation">]</span>,
-        <span class="token string">&quot;post_tags&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">&quot;&lt;/em&gt;&quot;</span><span class="token punctuation">]</span>,
+        <span class="token string">&quot;pre_tags&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">&quot;&lt;b&gt;&quot;</span><span class="token punctuation">]</span>,
+        <span class="token string">&quot;post_tags&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">&quot;&lt;/b&gt;&quot;</span><span class="token punctuation">]</span>,
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</pre><h3 class="mume-header" id="ik%E5%88%86%E8%AF%8D%E5%99%A8">IK&#x5206;&#x8BCD;&#x5668;</h3>
+</pre><h3 class="mume-header" id="example">Example</h3>
+
+<pre data-role="codeBlock" data-info="sh" class="language-bash"><span class="token comment"># &#x67E5;&#x770B;&#x6240;&#x6709;&#x6A21;&#x677F;</span>
+GET /_cat/templates?v<span class="token operator">&amp;</span><span class="token assign-left variable">h</span><span class="token operator">=</span>name
+<span class="token comment"># &#x521B;&#x5EFA;&#x6A21;&#x677F;</span>
+PUT /_template/student
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;order&quot;</span><span class="token builtin class-name">:</span> <span class="token number">1</span>,
+  <span class="token string">&quot;index_patterns&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;student*&quot;</span>,
+  <span class="token string">&quot;settings&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;index&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>,
+  <span class="token string">&quot;mappings&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;properties&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;name&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+        <span class="token string">&quot;type&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;keyword&quot;</span>
+      <span class="token punctuation">}</span>,
+      <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+        <span class="token string">&quot;type&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;text&quot;</span>
+      <span class="token punctuation">}</span>,
+      <span class="token string">&quot;gender&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+        <span class="token string">&quot;type&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;boolean&quot;</span>
+      <span class="token punctuation">}</span>,
+      <span class="token string">&quot;birth&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+        <span class="token string">&quot;type&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;date&quot;</span>
+      <span class="token punctuation">}</span>,
+      <span class="token string">&quot;weight&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+        <span class="token string">&quot;type&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;float&quot;</span>
+      <span class="token punctuation">}</span>,
+      <span class="token string">&quot;class&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+        <span class="token string">&quot;type&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;integer&quot;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>,
+  <span class="token string">&quot;aliases&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment"># &#x67E5;&#x770B;&#x6A21;&#x677F;</span>
+GET /_template/student
+HEAD /_template/student
+<span class="token comment"># DELETE /_template/student</span>
+
+<span class="token comment"># &#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;</span>
+
+<span class="token comment"># &#x67E5;&#x770B;&#x6240;&#x6709;&#x7D22;&#x5F15;</span>
+GET /_cat/indices?v<span class="token operator">&amp;</span><span class="token assign-left variable">h</span><span class="token operator">=</span>index
+<span class="token comment"># &#x5339;&#x914D;&#x6A21;&#x677F;&#x521B;&#x5EFA;&#x7D22;&#x5F15;</span>
+PUT /student1
+<span class="token comment"># &#x67E5;&#x770B;&#x7D22;&#x5F15;</span>
+GET /student1
+HEAD /student1
+<span class="token comment"># DELETE /student1</span>
+
+<span class="token comment"># &#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;</span>
+
+<span class="token comment"># &#x521B;&#x5EFA;&#x6587;&#x6863;</span>
+PUT /student1/_doc/1
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;name&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x5F20;&#x4E09;&quot;</span>,
+  <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x4E00;&#x4F4D;&#x5E05;&#x54E5;&quot;</span>,
+  <span class="token string">&quot;gender&quot;</span><span class="token builtin class-name">:</span> true,
+  <span class="token string">&quot;birth&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;1999-10-10&quot;</span>,
+  <span class="token string">&quot;weight&quot;</span><span class="token builtin class-name">:</span> <span class="token number">120.6</span>,
+  <span class="token string">&quot;class&quot;</span><span class="token builtin class-name">:</span> <span class="token number">101</span>
+<span class="token punctuation">}</span>
+PUT /student1/_doc/2
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;name&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x674E;&#x56DB;&quot;</span>,
+  <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x4E00;&#x4F4D;&#x9753;&#x5973;&quot;</span>,
+  <span class="token string">&quot;gender&quot;</span><span class="token builtin class-name">:</span> false,
+  <span class="token string">&quot;birth&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;1995-03-13&quot;</span>,
+  <span class="token string">&quot;weight&quot;</span><span class="token builtin class-name">:</span> <span class="token number">99.2</span>,
+  <span class="token string">&quot;class&quot;</span><span class="token builtin class-name">:</span> <span class="token number">101</span>
+<span class="token punctuation">}</span>
+PUT /student1/_doc/3
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;name&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;__&quot;</span>,
+  <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;???&quot;</span>,
+  <span class="token string">&quot;gender&quot;</span><span class="token builtin class-name">:</span> false,
+  <span class="token string">&quot;birth&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;2000-01-01&quot;</span>,
+  <span class="token string">&quot;weight&quot;</span><span class="token builtin class-name">:</span> <span class="token number">100.0</span>,
+  <span class="token string">&quot;class&quot;</span><span class="token builtin class-name">:</span> <span class="token number">100</span>
+<span class="token punctuation">}</span>
+POST /student1/_doc/
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;name&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x738B;&#x4E94;&quot;</span>,
+  <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x4E00;&#x4F4D;&#x8FA3;&#x59B9;&quot;</span>,
+  <span class="token string">&quot;gender&quot;</span><span class="token builtin class-name">:</span> false,
+  <span class="token string">&quot;birth&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;2002-02-02&quot;</span>,
+  <span class="token string">&quot;weight&quot;</span><span class="token builtin class-name">:</span> <span class="token number">87.5</span>,
+  <span class="token string">&quot;class&quot;</span><span class="token builtin class-name">:</span> <span class="token number">102</span>
+<span class="token punctuation">}</span>
+POST /student1/_doc/
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;name&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x8D75;&#x516D;&quot;</span>,
+  <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x4E00;&#x4F4D;&#x7EC5;&#x58EB;&quot;</span>,
+  <span class="token string">&quot;gender&quot;</span><span class="token builtin class-name">:</span> true,
+  <span class="token string">&quot;birth&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;1997-10-23&quot;</span>,
+  <span class="token string">&quot;weight&quot;</span><span class="token builtin class-name">:</span> <span class="token number">160.2</span>,
+  <span class="token string">&quot;class&quot;</span><span class="token builtin class-name">:</span> <span class="token number">102</span>
+<span class="token punctuation">}</span>
+<span class="token comment"># &#x67E5;&#x770B;&#x6240;&#x6709;&#x6587;&#x6863;</span>
+GET /student1/_search
+<span class="token comment"># &#x4FEE;&#x6539;&#x6587;&#x6863;</span>
+POST /student1/_update/2
+<span class="token punctuation">{</span>
+    <span class="token string">&quot;doc&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+        <span class="token string">&quot;name&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x674E;&#x56DB;&#x56DB;&quot;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment"># &#x67E5;&#x770B;&#x6240;&#x6709;&#x6587;&#x6863;</span>
+GET /student1/_search
+
+<span class="token comment"># &#x67E5;&#x770B;&#x3001;&#x5220;&#x9664;</span>
+GET /student1/_doc/3
+DELETE /student1/_doc/3
+
+<span class="token comment"># &#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;</span>
+
+<span class="token comment"># &#x5206;&#x8BCD;&#x5339;&#x914D;</span>
+GET /student1/_search
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;query&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;match&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x4E00;&#x4F4D;&#x7EC5;&#x58EB;&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># &#x7CBE;&#x786E;&#x5339;&#x914D;&#xFF08;keyword&#xFF09;</span>
+GET /student1/_search
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;query&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;term&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;name&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x674E;&#x56DB;&#x56DB;&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># &#x8303;&#x56F4;&#x5339;&#x914D;</span>
+GET /student1/_search
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;query&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;bool&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;filter&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token string">&quot;range&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+            <span class="token string">&quot;birth&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+              <span class="token string">&quot;gt&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;1995-01-01&quot;</span>,
+              <span class="token string">&quot;lt&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;2000-01-01&quot;</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># &#x5B57;&#x6BB5;&#x8FC7;&#x6EE4;</span>
+GET /student1/_search
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;_source&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">&quot;name&quot;</span>, <span class="token string">&quot;gender&quot;</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># &#x6392;&#x5E8F;</span>
+GET /student1/_search
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;sort&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">&quot;birth&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+        <span class="token string">&quot;order&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;desc&quot;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># &#x5206;&#x9875;&#x67E5;&#x8BE2;</span>
+GET /student1/_search
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;from&quot;</span><span class="token builtin class-name">:</span> <span class="token number">0</span>,
+  <span class="token string">&quot;size&quot;</span><span class="token builtin class-name">:</span> <span class="token number">2</span>
+<span class="token punctuation">}</span>
+GET /student1/_search
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;from&quot;</span><span class="token builtin class-name">:</span> <span class="token number">2</span>,
+  <span class="token string">&quot;size&quot;</span><span class="token builtin class-name">:</span> <span class="token number">2</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">### &#x9AD8;&#x4EAE;&#x5339;&#x914D;&#x7684;&#x5185;&#x5BB9;</span>
+GET /student1/_search
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;query&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;match&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x4E00;&#x4F4D;&#x7EC5;&#x58EB;&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>,
+  <span class="token string">&quot;highlight&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;pre_tags&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">&quot;&lt;a&gt;&quot;</span><span class="token punctuation">]</span>,
+    <span class="token string">&quot;post_tags&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">&quot;&lt;/a&gt;&quot;</span><span class="token punctuation">]</span>,
+    <span class="token string">&quot;fields&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+        <span class="token string">&quot;pre_tags&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">&quot;&lt;b&gt;&quot;</span><span class="token punctuation">]</span>,
+        <span class="token string">&quot;post_tags&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">&quot;&lt;/b&gt;&quot;</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+GET /student1/_search
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;query&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;match&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x4E00;&#x4F4D;&#x7EC5;&#x58EB;&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>,
+  <span class="token string">&quot;highlight&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;pre_tags&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">&quot;&lt;a&gt;&quot;</span><span class="token punctuation">]</span>,
+    <span class="token string">&quot;post_tags&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">&quot;&lt;/a&gt;&quot;</span><span class="token punctuation">]</span>,
+    <span class="token string">&quot;fields&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+GET /student1/_search
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;query&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;match&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&#x4E00;&#x4F4D;&#x7EC5;&#x58EB;&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>,
+  <span class="token string">&quot;highlight&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;fields&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;comment&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="ik%E5%88%86%E8%AF%8D%E5%99%A8">IK&#x5206;&#x8BCD;&#x5668;</h2>
 
 <p><a href="https://github.com/medcl/elasticsearch-analysis-ik">IK&#x5206;&#x8BCD;&#x5668;</a></p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token shebang important">#!/bin/bash</span>

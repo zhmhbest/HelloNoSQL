@@ -81,7 +81,11 @@ kibana-${VERSION}/bin/kibana
 
 @import "docs/search.sh"
 
-### IK分词器
+### Example
+
+@import "docs/example.sh"
+
+## IK分词器
 
 @import "docs/analysis_ik.md"
 

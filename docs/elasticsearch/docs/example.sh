@@ -54,26 +54,179 @@ HEAD /student1
 PUT /student1/_doc/1
 {
   "name": "张三",
-  "gender": false,
+  "comment": "一位帅哥",
+  "gender": true,
   "birth": "1999-10-10",
   "weight": 120.6,
   "class": 101
 }
-POST /student1/_doc/
+PUT /student1/_doc/2
 {
   "name": "李四",
+  "comment": "一位靓女",
   "gender": false,
-  "birth": "2000-09-09",
+  "birth": "1995-03-13",
   "weight": 99.2,
   "class": 101
 }
+PUT /student1/_doc/3
+{
+  "name": "__",
+  "comment": "???",
+  "gender": false,
+  "birth": "2000-01-01",
+  "weight": 100.0,
+  "class": 100
+}
+POST /student1/_doc/
+{
+  "name": "王五",
+  "comment": "一位辣妹",
+  "gender": false,
+  "birth": "2002-02-02",
+  "weight": 87.5,
+  "class": 102
+}
+POST /student1/_doc/
+{
+  "name": "赵六",
+  "comment": "一位绅士",
+  "gender": true,
+  "birth": "1997-10-23",
+  "weight": 160.2,
+  "class": 102
+}
+# 查看所有文档
+GET /student1/_search
 # 修改文档
-POST /student1/_update/1
+POST /student1/_update/2
 {
     "doc": {
-        "name": "张三三"
+        "name": "李四四"
     }
 }
 # 查看所有文档
 GET /student1/_search
 
+# 查看、删除
+GET /student1/_doc/3
+DELETE /student1/_doc/3
+
+# ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+# 分词匹配
+GET /student1/_search
+{
+  "query": {
+    "match": {
+      "comment": "一位绅士"
+    }
+  }
+}
+
+# 精确匹配（keyword）
+GET /student1/_search
+{
+  "query": {
+    "term": {
+      "name": "李四四"
+    }
+  }
+}
+
+# 范围匹配
+GET /student1/_search
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "range": {
+            "birth": {
+              "gt": "1995-01-01",
+              "lt": "2000-01-01"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+# 字段过滤
+GET /student1/_search
+{
+  "_source": ["name", "gender"]
+}
+
+# 排序
+GET /student1/_search
+{
+  "sort": [
+    {
+      "birth": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+# 分页查询
+GET /student1/_search
+{
+  "from": 0,
+  "size": 2
+}
+GET /student1/_search
+{
+  "from": 2,
+  "size": 2
+}
+
+### 高亮匹配的内容
+GET /student1/_search
+{
+  "query": {
+    "match": {
+      "comment": "一位绅士"
+    }
+  },
+  "highlight": {
+    "pre_tags": ["<a>"],
+    "post_tags": ["</a>"],
+    "fields": {
+      "comment": {
+        "pre_tags": ["<b>"],
+        "post_tags": ["</b>"]
+      }
+    }
+  }
+}
+GET /student1/_search
+{
+  "query": {
+    "match": {
+      "comment": "一位绅士"
+    }
+  },
+  "highlight": {
+    "pre_tags": ["<a>"],
+    "post_tags": ["</a>"],
+    "fields": {
+      "comment": {}
+    }
+  }
+}
+GET /student1/_search
+{
+  "query": {
+    "match": {
+      "comment": "一位绅士"
+    }
+  },
+  "highlight": {
+    "fields": {
+      "comment": {}
+    }
+  }
+}

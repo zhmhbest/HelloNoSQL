@@ -15,7 +15,13 @@ POST /${IndexName}/_doc
 # 查看所有文档
 GET /${IndexName}/_search
 
-# # 修改文档
+# 查看指定ID文档
+GET /${IndexName}/_doc/${ID}
+
+# 删除指定ID文档
+DELETE /${IndexName}/_doc/${ID}
+
+# 修改文档
 POST /${IndexName}/_update/${ID}
 {
     "doc": {

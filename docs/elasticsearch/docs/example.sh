@@ -13,6 +13,9 @@ PUT /_template/student
       "name": {
         "type": "keyword"
       },
+      "comment": {
+        "type": "text"
+      },
       "gender": {
         "type": "boolean"
       },

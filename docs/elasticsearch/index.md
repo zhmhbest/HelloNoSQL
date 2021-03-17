@@ -77,6 +77,14 @@ kibana-${VERSION}/bin/kibana
 
 @import "docs/document.sh"
 
+### Search
+
+@import "docs/search.sh"
+
+### IK分词器
+
+@import "docs/analysis_ik.md"
+
 ## ES Clients
 
 - [Clients](https://www.elastic.co/guide/en/elasticsearch/client/index.html)

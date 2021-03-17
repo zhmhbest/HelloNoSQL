@@ -1,12 +1,23 @@
-# 创建模板
+# 查看所有模板
+GET /_cat/templates?v
+
+# 创建/修改模板
 PUT /_template/${TemplateName}
 {
     "order": 1,
-    "template": "${TemplatePattern}",
+    # "template": "${TemplatePattern}",
+    "index_patterns": "${TemplatePattern}",
     "settings": { "index": {} },
     "mappings": {
-        # "${TemplateName}": {
+        # "${_doc}": {
             "properties": {
+                # keyword | text
+                # byte | short | integer | long
+                # half_float | scaled_float | float | double
+                # date | date_nanos
+                # boolean
+                # binary
+                # integer_range | long_range | float_range | double_range | date_range
                 "${FieldName}": {
                     "type": "${FieldType}"
                 },
@@ -17,33 +28,8 @@ PUT /_template/${TemplateName}
     "aliases": {}
 }
 
-# 查看模板
+# 查看模板信息
 GET /_template/${TemplateName}
-# ----------------
-{
-    "${TemplateName}": {
-        "order": 1, # 同时匹配多个模板时，使用数值较大的
-        "template": "${TemplatePattern}",
-        "settings": {
-            "index": {
-                # ...
-            }
-        },
-        "mappings": {
-            # "${TemplateName}": {
-                # ...
-                "properties": {
-                    "${FieldName}": {
-                        # keyword | text | integer | long | date
-                        "type": "${FieldType}"
-                    },
-                    # ...
-                }
-            # }
-        },
-        "aliases": {}
-    }
-}
 
 # 模板是否存在
 HEAD /_template/${TemplateName}

@@ -11,7 +11,6 @@ CREATE DATABASE IF NOT EXISTS dbname ON CLUSTER ck_cluster;
 
 -- 删除集群库
 DROP DATABASE IF EXISTS dbname ON CLUSTER ck_cluster;
-
 ```
 
 ### 表
@@ -27,7 +26,10 @@ ON CLUSTER
     `CounterID` UInt32,
     `UserID` UInt32
 )
-ENGINE = ReplicatedMergeTree('/clickhouse/tables/{layer}-{shard}/table_local', '{replica}')
+ENGINE = ReplicatedMergeTree(
+    '/clickhouse/tables/{layer}-{shard}/table_local',
+    '{replica}'
+)
 PARTITION BY (EventDate)
 ORDER BY (CounterID, intHash32(UserID))
 SAMPLE BY intHash32(UserID);
@@ -52,11 +54,14 @@ ENGINE = Distributed(
 -- ALTER TABLE dbname.table_local DELETE WHERE UserID=46;
 
 -- 集群表插入删除
-INSERT INTO dbname.table_distributed VALUES('2020-03-11',22,54),('2020-03-11',22,57),('2020-03-12',22,58);
+INSERT INTO dbname.table_distributed VALUES
+    ('2020-03-11',22,54),
+    ('2020-03-11',22,57),
+    ('2020-03-12',22,58);
 ALTER TABLE dbname.table_local ON CLUSTER ck_cluster DELETE WHERE UserID=54;
 
 -- 【集群表注意事项】
--- 集群表插入会有延时情况
+-- 集群表 插入/清空 会有延时情况
 -- GLOBAL IN 代替 IN
 -- GLOBAL NOT JOIN 代替 NOT JOIN
 -- GLOBAL JOIN 代替 JOIN
@@ -150,9 +155,68 @@ SELECT  now()                                 AS t
        ,DATEDIFF('second',t,addSeconds(t,7))  AS diff_seconds ;
 ```
 
-### 其它
+### 正则
 
 ```SQL
 -- 正则匹配
-SELECT DISTINCT(region) FROM dbname.table_distributed WHERE NOT match(region , '^[0-9]+$');
+SELECT DISTINCT(region) FROM dbname.table_distributed
+WHERE NOT match(region , '^[0-9]+$');
+```
+
+### 聚合函数
+
+>[aggregate-functions](https://clickhouse.tech/docs/zh/sql-reference/aggregate-functions/reference/)
+
+#### groupArray
+
+```SQL
+SELECT
+    `name`,
+    groupArray(`identity`) AS `identity`
+FROM (
+    SELECT 'Ann' AS `name`, 'Student' AS `identity`
+    UNION ALL
+    SELECT 'Ann' AS `name`, 'American' AS `identity`
+)
+GROUP BY `name`
+```
+
+#### ARRAY JOIN
+
+```SQL
+SELECT * FROM (
+    SELECT
+        'Ann' AS `name`,
+        ['Student', 'American'] AS `identity`
+)
+ARRAY JOIN `identity`;
+```
+
+#### 分组筛选
+
+1. 分组查询
+2. 按组过滤数据
+3. 提取组内数据
+4. 还原分组
+
+```SQL
+-- 还原分组
+SELECT `id`, `name`, `class`
+FROM (
+    -- 筛选班级内成员人数超过2人的班级
+    SELECT
+        `class`,
+        groupArray(`id`) AS `id`,
+        groupArray(`name`) AS `name`
+    FROM (
+        -- 模拟数据
+        SELECT 1 AS `id`, '张三' AS `name`, 101 AS `class` UNION ALL
+        SELECT 2 AS `id`, '李四' AS `name`, 101 AS `class` UNION ALL
+        SELECT 3 AS `id`, '王五' AS `name`, 102 AS `class` UNION ALL
+        SELECT 4 AS `id`, '赵六' AS `name`, 102 AS `class` UNION ALL
+        SELECT 5 AS `id`, '钱七' AS `name`, 102 AS `class`
+    )
+    GROUP BY `class`
+    HAVING COUNT(*) > 2
+) ARRAY JOIN `id`, `name`;
 ```

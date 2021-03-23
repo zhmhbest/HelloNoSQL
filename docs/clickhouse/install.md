@@ -190,5 +190,7 @@ systemctl status clickhouse-server
 #### 测试集群
 
 ```bash
+# clickhouse-client --multiline --user <用户名> --password <密码>
+clickhouse-client --multiline --user test_cq --password <密码>
 clickhouse-client -m
 ```

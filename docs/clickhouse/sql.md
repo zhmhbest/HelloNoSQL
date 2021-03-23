@@ -163,8 +163,9 @@ SELECT DISTINCT(region) FROM dbname.table_distributed
 WHERE NOT match(region , '^[0-9]+$');
 ```
 
-### 聚合函数
+### 函数
 
+>[functions](https://clickhouse.tech/docs/zh/sql-reference/functions/)
 >[aggregate-functions](https://clickhouse.tech/docs/zh/sql-reference/aggregate-functions/reference/)
 >[aggregate-combinators](https://clickhouse.tech/docs/zh/sql-reference/aggregate-functions/combinators/)
 

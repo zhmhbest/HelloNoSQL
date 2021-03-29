@@ -191,6 +191,6 @@ systemctl status clickhouse-server
 
 ```bash
 # clickhouse-client --multiline --user <用户名> --password <密码>
-clickhouse-client --multiline --user test_cq --password <密码>
+clickhouse-client --multiline --user <用户名> --password <密码>
 clickhouse-client -m
 ```

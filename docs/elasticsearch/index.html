@@ -3,7 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
       
       
       
@@ -418,6 +418,7 @@ PUT /_template/<span class="token variable">${TemplateName}</span>
                 <span class="token comment"># byte | short | integer | long</span>
                 <span class="token comment"># half_float | scaled_float | float | double</span>
                 <span class="token comment"># date | date_nanos</span>
+                <span class="token comment">#     &quot;format&quot;: &quot;yyyy-MM-dd HH:mm:ss || yyyy-MM-dd || yyyy/MM/dd HH:mm:ss || yyyy/MM/dd || epoch_millis&quot;</span>
                 <span class="token comment"># boolean</span>
                 <span class="token comment"># binary</span>
                 <span class="token comment"># integer_range | long_range | float_range | double_range | date_range</span>
@@ -598,6 +599,21 @@ GET /<span class="token variable">${IndexName}</span>/_search
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
+<span class="token comment"># &#x65E5;&#x671F;&#x8303;&#x56F4;</span>
+GET /<span class="token variable">${IndexName}</span>/_search
+<span class="token punctuation">{</span>
+    <span class="token string">&quot;query&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+        <span class="token string">&quot;range&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+            <span class="token string">&quot;<span class="token variable">${FieldName}</span>&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+                <span class="token comment"># y M w d</span>
+                <span class="token comment"># H h m s</span>
+                <span class="token string">&quot;gte&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;now-1d/d&quot;</span>,  <span class="token comment"># &#x5F53;&#x524D;&#x65F6;&#x95F4;&#x7684;&#x4E0A;&#x4E00;&#x5929;, &#x56DB;&#x820D;&#x4E94;&#x5165;&#x5230;&#x5929;</span>
+                <span class="token string">&quot;lt&quot;</span><span class="token builtin class-name">:</span>  <span class="token string">&quot;now/d&quot;</span>      <span class="token comment"># &#x5F53;&#x524D;&#x65F6;&#x95F4;, &#x56DB;&#x820D;&#x4E94;&#x5165;&#x5230;&#x5929;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
 <span class="token comment"># &#x5B57;&#x6BB5;&#x8FC7;&#x6EE4;</span>
 GET /<span class="token variable">${IndexName}</span>/_search
 <span class="token punctuation">{</span>
@@ -694,7 +710,8 @@ PUT /_template/student
         <span class="token string">&quot;type&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;boolean&quot;</span>
       <span class="token punctuation">}</span>,
       <span class="token string">&quot;birth&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
-        <span class="token string">&quot;type&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;date&quot;</span>
+        <span class="token string">&quot;type&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;date&quot;</span>,
+        <span class="token string">&quot;format&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;yyyy-MM-dd HH:mm:ss || yyyy-MM-dd || yyyy/MM/dd HH:mm:ss || yyyy/MM/dd || epoch_millis&quot;</span>
       <span class="token punctuation">}</span>,
       <span class="token string">&quot;weight&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
         <span class="token string">&quot;type&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;float&quot;</span>

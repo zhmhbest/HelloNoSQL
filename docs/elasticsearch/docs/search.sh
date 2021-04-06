@@ -87,6 +87,21 @@ GET /${IndexName}/_search
   }
 }
 
+# 日期范围
+GET /${IndexName}/_search
+{
+    "query": {
+        "range": {
+            "${FieldName}": {
+                # y M w d
+                # H h m s
+                "gte": "now-1d/d",  # 当前时间的上一天, 四舍五入到天
+                "lt":  "now/d"      # 当前时间, 四舍五入到天
+            }
+        }
+    }
+}
+
 # 字段过滤
 GET /${IndexName}/_search
 {

@@ -22,7 +22,8 @@ PUT /_template/student
         "type": "boolean"
       },
       "birth": {
-        "type": "date"
+        "type": "date",
+        "format": "yyyy-MM-dd HH:mm:ss || yyyy-MM-dd || yyyy/MM/dd HH:mm:ss || yyyy/MM/dd || epoch_millis"
       },
       "weight": {
         "type": "float"

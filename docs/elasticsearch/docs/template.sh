@@ -15,6 +15,7 @@ PUT /_template/${TemplateName}
                 # byte | short | integer | long
                 # half_float | scaled_float | float | double
                 # date | date_nanos
+                #     "format": "yyyy-MM-dd HH:mm:ss || yyyy-MM-dd || yyyy/MM/dd HH:mm:ss || yyyy/MM/dd || epoch_millis"
                 # boolean
                 # binary
                 # integer_range | long_range | float_range | double_range | date_range

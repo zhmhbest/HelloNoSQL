@@ -5,6 +5,76 @@
 
 [TOC]
 
+## 基本概念
+
+ZooKeeper是一种分布式协调服务。
+
+### CAP理论
+
+![cap-theorem-diagram](images/cap-theorem-diagram.png)
+
+- **一致性（Consistency）**：在分布式环境中，一致性是指数据在多个副本之间是否能够保持一致的特性，等同于所有节点访问同一份最新的数据副本。在一致性的需求下，当一个系统在数据一致的状态下执行更新操作后，应该保证系统的数据仍然处于一致的状态。
+
+- **可用性（Availability）**：每次请求都能获取到正确的响应，但是不保证获取的数据为最新数据。
+
+- **分区容错性（Partition tolerance）**：分布式系统在遇到任何网络分区故障的时候，仍然需要能够保证对外提供满足一致性和可用性的服务，除非是整个网络环境都发生了故障。
+
+一个分布式系统最多只能同时满足三项中的两项，P是必须的，Zookeeper保证的是**CP**。
+
+### 整体架构
+
+|||
+|-|-|
+|Client  |分布式应用集群中的一个节点
+|Server  |ZooKeeper集群中的一个节点
+|Ensemble|ZooKeeper服务器组，形成所需的最小节点数为3
+|Leader  |ZooKeeper集群内部各个服务的调度者
+|Follower|ZooKeeper集群内部跟随Leader指令的节点
+|Observer|与Follower类似，但不参与投票
+
+### 主从服务器
+
+Leader选举分为Zookeeper集群启动时选举和Zookeeper集群运行期间重新选举两种情况。
+
+若节点服务器启动时发现已经有Leader节点，则不再进行投票。
+
+为防止脑裂导致服务瘫痪，最好使用奇数数量的Zookeeper节点。
+
+#### 节点状态
+
+- LOOKING：正在寻找Leader服务器
+- LEADING：当前节点角色是`leader`
+- FOLLOWING：当前节点角色是`follower`
+- OBSERVER：当前节点角色是`observer`
+
+### 层次命名空间
+
+![zknamespace](images/zknamespace.png)
+
+Zookkeeper提供的名称空间类似于标准文件系统。
+
+```bash
+zkCli.sh
+
+# 查看节点下子节点
+ls /
+
+# 查看Znode节点信息
+# get -s /
+stat /
+# cZxid = 0x0
+# ctime = Thu Jan 01 08:00:00 CST 1970
+# mZxid = 0x0
+# mtime = Thu Jan 01 08:00:00 CST 1970
+# pZxid = 0x100000003
+# cversion = 0
+# dataVersion = 0
+# aclVersion = 0
+# ephemeralOwner = 0x0
+# dataLength = 0
+# numChildren = 2
+```
+
 ## 系统配置
 
 ### 添加域名

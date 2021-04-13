@@ -84,13 +84,22 @@ grep '<interserver_http_host>' /etc/clickhouse-server/config.xml
 #### user.xml
 
 ```bash
+# 生成SHA256密钥
+echo -n 'ckpwd' | sha256sum
+
 vim /etc/clickhouse-server/users.xml
 # :?<password>
-grep '^ *<password>' /etc/clickhouse-server/users.xml
+grep '^ *<password' /etc/clickhouse-server/users.xml
 ```
 
 ```xml
-<password>default</password>>
+<!-- 仅选择以下一个设置 -->
+
+<!-- 明文密钥 -->
+<password>ckpwd</password>
+
+<!-- 密文密钥 -->
+<password_sha256_hex>0fcde7eb94e529578898ccb51c9cb941e51447e1d45cdc68deba25c38c578967</password_sha256_hex>
 ```
 
 #### metrica.xml

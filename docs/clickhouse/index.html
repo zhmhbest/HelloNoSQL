@@ -3,12 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      
-        <script type="text/x-mathjax-config">
-          MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}});
-        </script>
-        <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
-        
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
       
       
       
@@ -384,10 +379,19 @@ systemctl status clickhouse-server
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>include_from</span><span class="token punctuation">&gt;</span></span>/etc/clickhouse-server/metrika.xml<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>include_from</span><span class="token punctuation">&gt;</span></span>
 </pre><h4 class="mume-header" id="userxml">user.xml</h4>
 
-<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">vim</span> /etc/clickhouse-server/users.xml
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># &#x751F;&#x6210;SHA256&#x5BC6;&#x94A5;</span>
+<span class="token builtin class-name">echo</span> -n <span class="token string">&apos;ckpwd&apos;</span> <span class="token operator">|</span> sha256sum
+
+<span class="token function">vim</span> /etc/clickhouse-server/users.xml
 <span class="token comment"># :?&lt;password&gt;</span>
-<span class="token function">grep</span> <span class="token string">&apos;^ *&lt;password&gt;&apos;</span> /etc/clickhouse-server/users.xml
-</pre><pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>password</span><span class="token punctuation">&gt;</span></span>default<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>password</span><span class="token punctuation">&gt;</span></span>&gt;
+<span class="token function">grep</span> <span class="token string">&apos;^ *&lt;password&apos;</span> /etc/clickhouse-server/users.xml
+</pre><pre data-role="codeBlock" data-info="xml" class="language-xml"><span class="token comment">&lt;!-- &#x4EC5;&#x9009;&#x62E9;&#x4EE5;&#x4E0B;&#x4E00;&#x4E2A;&#x8BBE;&#x7F6E; --&gt;</span>
+
+<span class="token comment">&lt;!-- &#x660E;&#x6587;&#x5BC6;&#x94A5; --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>password</span><span class="token punctuation">&gt;</span></span>ckpwd<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>password</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!-- &#x5BC6;&#x6587;&#x5BC6;&#x94A5; --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>password_sha256_hex</span><span class="token punctuation">&gt;</span></span>0fcde7eb94e529578898ccb51c9cb941e51447e1d45cdc68deba25c38c578967<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>password_sha256_hex</span><span class="token punctuation">&gt;</span></span>
 </pre><h4 class="mume-header" id="metricaxml">metrica.xml</h4>
 
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">rm</span> -f /etc/clickhouse-server/metrika.xml
@@ -473,7 +477,7 @@ systemctl status clickhouse-server
 </pre><h4 class="mume-header" id="%E6%B5%8B%E8%AF%95%E9%9B%86%E7%BE%A4">&#x6D4B;&#x8BD5;&#x96C6;&#x7FA4;</h4>
 
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># clickhouse-client --multiline --user &lt;&#x7528;&#x6237;&#x540D;&gt; --password &lt;&#x5BC6;&#x7801;&gt;</span>
-clickhouse-client --multiline --user test_cq --password <span class="token operator">&lt;</span>&#x5BC6;&#x7801;<span class="token operator">&gt;</span>
+clickhouse-client --multiline --user <span class="token operator">&lt;</span>&#x7528;&#x6237;&#x540D;<span class="token operator">&gt;</span> --password <span class="token operator">&lt;</span>&#x5BC6;&#x7801;<span class="token operator">&gt;</span>
 clickhouse-client -m
 </pre><h2 class="mume-header" id="sql">SQL</h2>
 

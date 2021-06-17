@@ -57,7 +57,8 @@ kibana-${VERSION}/bin/kibana
 ```
 
 - <http://localhost:5601>
-- <http://localhost:5601/app/dev_tools#/console>
+- Kibana 5+ Console: <http://localhost:5601/app/kibana#/dev_tools/console>
+- Kibana 7+ Console: <http://localhost:5601/app/dev_tools#/console>
 
 ## REST API
 

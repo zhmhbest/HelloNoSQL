@@ -893,21 +893,36 @@ Hello Logstash
 }
 </pre><h3 class="mume-header" id="filter">Filter</h3>
 
+<blockquote>
+<p><a href="https://grokdebug.herokuapp.com/">GrokDebug</a><br>
+<a href="https://www.elastic.co/guide/en/logstash/current/input-plugins.html">Doc Input</a><br>
+<a href="https://www.elastic.co/guide/en/logstash/current/filter-plugins.html">Doc Filter</a><br>
+<a href="https://www.elastic.co/guide/en/logstash/current/output-plugins.html">Doc Output</a></p>
+</blockquote>
 <p><code>vim test.conf</code></p>
-<pre data-role="codeBlock" data-info="conf" class="language-conf"><code>input {
-    stdin{}
-}
+<pre data-role="codeBlock" data-info="bash" class="language-bash">input <span class="token punctuation">{</span>
+    stdin<span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token comment"># file{}</span>
+    <span class="token comment"># tcp{}</span>
+<span class="token punctuation">}</span>
 
-filter {
-    grok {
-        match =&gt; { &quot;message&quot; =&gt; &quot;%{WORD:a2}\|%{NUMBER:a1}(\r\n|\n|\r)&quot;}
-    }
-}
+filter <span class="token punctuation">{</span>
+    grok <span class="token punctuation">{</span>
+        match <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span> <span class="token string">&quot;message&quot;</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">&quot;%{WORD:a2}\|%{NUMBER:a1}(<span class="token entity" title="\r">\r</span><span class="token entity" title="\n">\n</span>|<span class="token entity" title="\n">\n</span>|<span class="token entity" title="\r">\r</span>)&quot;</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment"># csv {</span>
+    <span class="token comment">#     separator =&gt; &quot;|&quot;</span>
+    <span class="token comment">#     columns =&gt; [&quot;id&quot;, &quot;name&quot;]</span>
+    <span class="token comment"># }</span>
+<span class="token punctuation">}</span>
 
-output {
-    stdout{}
-}
-</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash">logstash -f test.conf
+output <span class="token punctuation">{</span>
+    stdout <span class="token punctuation">{</span> codec <span class="token operator">=</span><span class="token operator">&gt;</span> json_lines <span class="token punctuation">}</span>
+    <span class="token comment"># file{}</span>
+    <span class="token comment"># kafka{}</span>
+    <span class="token comment"># elasticsearch{}</span>
+<span class="token punctuation">}</span>
+</pre><pre data-role="codeBlock" data-info="bash" class="language-bash">logstash -f test.conf
 
 qwe<span class="token operator">|</span><span class="token number">789</span>
 asd<span class="token operator">|</span><span class="token number">456</span>

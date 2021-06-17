@@ -142,21 +142,36 @@ Hello Logstash
 
 ### Filter
 
+>[GrokDebug](https://grokdebug.herokuapp.com/)
+>[Doc Input](https://www.elastic.co/guide/en/logstash/current/input-plugins.html)
+>[Doc Filter](https://www.elastic.co/guide/en/logstash/current/filter-plugins.html)
+>[Doc Output](https://www.elastic.co/guide/en/logstash/current/output-plugins.html)
+
+
 `vim test.conf`
 
-```conf
+```bash
 input {
     stdin{}
+    # file{}
+    # tcp{}
 }
 
 filter {
     grok {
         match => { "message" => "%{WORD:a2}\|%{NUMBER:a1}(\r\n|\n|\r)"}
     }
+    # csv {
+    #     separator => "|"
+    #     columns => ["id", "name"]
+    # }
 }
 
 output {
-    stdout{}
+    stdout { codec => json_lines }
+    # file{}
+    # kafka{}
+    # elasticsearch{}
 }
 ```
 
